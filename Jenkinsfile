@@ -10,7 +10,7 @@ pipeline {
                 }
             }
 
-            }
+        }
             steps {
                 sh '''
                    ls -la
@@ -20,5 +20,5 @@ pipeline {
                    npm run build
                 '''
             }
-        }
     }
+}
