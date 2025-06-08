@@ -76,8 +76,25 @@ pipeline {
 
             }
         }
+        stage('Deploy staging) {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli@21.5.0
+                    node_modules/.bin/netlify --version
+                    echo "Deploying to staging. Site ID: $NETLIFY_SITE_ID"
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=build
+                '''
+            }
+        }
 
-        stage('Deploy') {
+        stage('Deploy prod') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -90,7 +107,7 @@ pipeline {
                     node_modules/.bin/netlify --version
                     echo "Deploying to Production. Site ID: $NETLIFY_SITE_ID"
                     node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy '--dir=build' --prod --no-build
+                    node_modules/.bin/netlify deploy --dir=build --prod --no-build
                 '''
             }
         }
