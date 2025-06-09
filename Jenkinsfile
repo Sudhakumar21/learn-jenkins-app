@@ -91,6 +91,7 @@ pipeline {
 
             steps {
                 sh '''
+                    apk add --no-cache python3 make g++ vips-dev && \
                     npm install netlify-cli@21.5.0 node-jq --build-from-source=sharp
                     node_modules/.bin/netlify --version
                     echo "Deploying to staging. Site ID: $NETLIFY_SITE_ID"
