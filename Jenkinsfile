@@ -91,7 +91,7 @@ pipeline {
 
             steps {
                 sh '''
-                    npm install netlify-cli@21.5.0 node-jq
+                    npm install netlify-cli@21.5.0 node-jq --build-from-source=sharp
                     node_modules/.bin/netlify --version
                     echo "Deploying to staging. Site ID: $NETLIFY_SITE_ID"
                     node_modules/.bin/netlify status
